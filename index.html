@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/2/2b/Microsoft_Paint.svg"></link>
+<!-- Dodaj ikonę Apple Touch Icon -->
+<link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/2/2b/Microsoft_Paint.svg">
 <title>MS Paint</title>
 <style>
     body {
@@ -16,10 +17,21 @@
         margin: 0 auto;
         border: 1px solid #000000;
     }
+    #saveButton {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
 <canvas id="canvas" width="800" height="600"></canvas>
+<button id="saveButton">Save as PNG</button>
 <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -49,6 +61,15 @@
     canvas.addEventListener('mousedown', startPosition);
     canvas.addEventListener('mouseup', endPosition);
     canvas.addEventListener('mousemove', draw);
+
+    // Dodaj obsługę zapisu do PNG po kliknięciu przycisku
+    document.getElementById('saveButton').addEventListener('click', function() {
+        const image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+        const link = document.createElement('a');
+        link.download = 'my_painting.png';
+        link.href = image;
+        link.click();
+    });
 </script>
 </body>
 </html>
